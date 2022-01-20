@@ -1,12 +1,38 @@
-\documentclass{report}
+\documentclass{article}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{forest}
 \usepackage{amsmath}
 \usepackage{multicol}
 \begin{document}
 \include{titlepage.tex}
 
+\section{Description}
+An Internet of Things device that will record the inputs and outputs of the items within it. 
+Correctly identifying the items over time and telling how much is used after each use case.
+The sensors will have an accompanying application to help identify the weights of each item.
+This will allow the user to sign in the items once and never have to worry about them again.
+After the Internet of Things device will be able to understand when an object is empty.
+
+\section{Components}
+Parts of the application that will need to be built out.
+
+\subsection{Database}
+A relational database will be needed to securely store the patient information.
+An implementation of the FHIR spec will be required for interoperability between platforms.
+\subsubsection{Skills Required}
+Any major database knowledge; MySQL, MariaDB, or Postgres.
+SQL knowledge; ability to create normalized database structures.
+Networking/System Administering; ability for having the database be accessed from multiple clients in a secure method.
+\subsubsection{Team Members}
+
+\subsection{Application Programming Interface}
+An API will be needed to serve JSON Data
+\subsubsection{Skills Required}
+\subsubsection{Team Members}
+
+\subsection{Web Client}
+\subsubsection{Skills Required}
+\subsubsection{Team Members}
 
 \end{document}
 
