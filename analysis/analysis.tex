@@ -16,14 +16,15 @@ After the Internet of Things device will be able to understand when an object is
 That is the gist of the use case for the application. 
 
 The benefits of this application will be as follows. 
-Low cost application for remotely monitoring the quantity of food stuffs and other household goods.
-This can then be then integrated with numerous other APIs that will cause actions automatically.
-That will allow for automatic order of food stuffs or other items and even just general notification and information gathering. 
+Low cost application for remotely monitoring the quantity of food items and other household goods.
+This can be integrated with numerous other APIs that will cause actions automatically.
+That will allow for automatic order of food items or other household goods and aid in information gathering. 
 
 \section{Components}
 
-An microprocessor with accompanying sensors that detect weight will be one of the key components. 
+A microcontroller with accompanying sensors that detect weight will be one of the key components. 
 Another component to this Internet of Things Application will the Mobile Application that will be receiving the data from the previously mentioned device.
+An embedded wifi component to allow for remote transfer of data. 
 Having the sensors detecting the weight will be augmented with presence sensors that will be riddled throughout the shelf's service.
 With a combination of these three data points we have a large chance of successfully understanding the inputs and outputs of the shelf.
 
@@ -32,16 +33,16 @@ With a combination of these three data points we have a large chance of successf
 The skills required for this application are tightly coupled with the Components requirements.
 The skill for the microprocessor development will require embedded systems knowledge.
 Particularly for being able to transmit the information from the microprocessor to any other system will be key to the success of the project.
-Along with the knowledge need for the microprocessor the information for choosing the correct sensor will also be needed.
-With choosing the correct sensory devices we will need to understand what will be the best sensory location and pressure gauges for this application.
+Along with the knowledge need for the microprocessor the information for choosing the correct sensors and accompanying hardware will also be needed.
+With choosing the correct sensory devices, we will need to understand what will be the best sensory location and pressure gauges for this application.
 
-That sums up the skills needed with our currently knowledge of the embedded side of this application. 
+That sums up the known skills needed based on our current understanding of the embedded side of this application. 
 With the Internet of Things you have more than just an embedded side of the application. 
 You will also need the ability to compile all the information the device is outputting. 
 The embedding device could be used to understand that data but that will couple failure points closer than we would like.
 For this reason we will be having all the data be processed on the mobile application.
-This will need the skills of various mobile programming languages.
-Such as Swift and Kotlin for the Android and iOS applications.
+This will need the skills of various mobile programming languages and database management.
+Such as Swift and Kotlin for the Android and iOS applications coupled with a database API.
 
 \subsection{Embedded System}
 An microprocessor with accompanying sensors that detect weight will be one of the key components. 
@@ -61,7 +62,6 @@ With the database we will be able to use a very lightweight database that is giv
 The database that we will be using will be the Sqlite Database. 
 Within this we will be able to iterate very quickly with testing.
 There will be no time wasted on testing this application because we will be able to test mock databases from our own computers in a light weight fashion.
-Sqlite is a simple database and the entire team will be able to caught up to speed with it to the degree of their use in the application development process fairly quickly.
 
 \subsubsection{Skills Required}
 The skills needed for the database development will be listed as follows.
@@ -89,7 +89,8 @@ The server will be set up to send HTTP Request, through a restful interface.
 The skills needed mainly will be networking and embedded systems knowledge.
 
 \subsubsection{Team Members}
-The development will be provided by the entire team.
+Leading the development will be Genasie Gaige.
+Help with development will be provided by the rest of the team.
 
 \subsection{Mobile Application}
 The mobile application will be a vital part to the success of the application.
