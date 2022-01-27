@@ -29,10 +29,11 @@ struct barcodeScanner: View {
                     .clipped()
             }
         }
-        Text("I will be a barcode scanner one day")
-            .navigationTitle("Scanner")
+            else {
+                Color.black
+            }
+        }
     }
-}
 
 struct barcodeScanner_Previews: PreviewProvider {
     static var previews: some View {

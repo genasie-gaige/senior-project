@@ -12,6 +12,7 @@
 		569C7C9427A225AB005C1F46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 569C7C9327A225AB005C1F46 /* Assets.xcassets */; };
 		569C7C9727A225AB005C1F46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 569C7C9627A225AB005C1F46 /* Preview Assets.xcassets */; };
 		569C7C9E27A23580005C1F46 /* barcodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C7C9D27A23580005C1F46 /* barcodeScanner.swift */; };
+		569C7CA027A23E7E005C1F46 /* cameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569C7C9F27A23E7E005C1F46 /* cameraManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		569C7C9327A225AB005C1F46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		569C7C9627A225AB005C1F46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		569C7C9D27A23580005C1F46 /* barcodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = barcodeScanner.swift; sourceTree = "<group>"; };
+		569C7C9F27A23E7E005C1F46 /* cameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cameraManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				569C7C8F27A225A9005C1F46 /* shelfApp.swift */,
 				569C7C9127A225A9005C1F46 /* ContentView.swift */,
 				569C7C9D27A23580005C1F46 /* barcodeScanner.swift */,
+				569C7C9F27A23E7E005C1F46 /* cameraManager.swift */,
 				569C7C9327A225AB005C1F46 /* Assets.xcassets */,
 				569C7C9527A225AB005C1F46 /* Preview Content */,
 			);
@@ -142,6 +145,7 @@
 			files = (
 				569C7C9227A225A9005C1F46 /* ContentView.swift in Sources */,
 				569C7C9027A225A9005C1F46 /* shelfApp.swift in Sources */,
+				569C7CA027A23E7E005C1F46 /* cameraManager.swift in Sources */,
 				569C7C9E27A23580005C1F46 /* barcodeScanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

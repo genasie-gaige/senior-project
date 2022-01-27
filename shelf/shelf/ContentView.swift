@@ -10,7 +10,9 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView{
-            NavigationLink(destination: barcodeScanner()) {
+            NavigationLink(
+                destination: barcodeScanner().edgesIgnoringSafeArea(.all)
+            ) {
                 Text("Barcode Scanner")
                     .navigationTitle("Home")
             }
