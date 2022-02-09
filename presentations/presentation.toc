@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Proposed Project}{3}{0}{1}
+\beamer@sectionintoc {2}{Components}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Hardware}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Software}{13}{0}{2}
+\beamer@sectionintoc {3}{Current Progress}{17}{0}{3}
+\beamer@subsectionintoc {3}{1}{Hardware}{19}{0}{3}
+\beamer@subsectionintoc {3}{2}{Software}{23}{0}{3}
+\beamer@subsectionintoc {3}{3}{C-Day}{27}{0}{3}
+\beamer@sectionintoc {4}{Current Hardships}{28}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{29}{0}{5}
