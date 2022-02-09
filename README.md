@@ -1,5 +1,5 @@
 # Senior Project
-# Telemedicine Application(5B)
+# Internet of Things Application(10B)
 
 ### Meetings 
 
