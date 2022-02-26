@@ -1,11 +1,6 @@
 import {
-    FormControl,
-    FormLabel,
-    Input,
     VStack,
     Heading,
-    SimpleGrid,
-    GridItem,
     Button,
     useBreakpointValue,
     useColorModeValue
