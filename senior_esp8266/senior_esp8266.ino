@@ -64,9 +64,6 @@ void reconnect()
       if(client.connect("ESPthing"))
       {
          Serial.println("connected");
-         // Once connected, publish an announcement...
-         client.publish("outTopic", "hello world");
-         // ... and resubscribe
          client.subscribe("inTopic");
       }
       else
@@ -171,18 +168,23 @@ void loop()
    }
    client.loop();
    long now = millis();
-   if(now - lastMsg > 2000 && NodeMCU.available() > 0)
+   if(now - lastMsg > 1000)
    {
       lastMsg = now;
       String macIdStr = mac_Id;
-      uint8_t val = NodeMCU.read();
-      String randomString = String(random(0xffff), HEX);
-      snprintf(msg, BUFFER_LEN, "{\"mac_Id\" : \"%s\", \"weight\" : %d, \"medicine\" : \"%s\"}", macIdStr.c_str(), val, 'Ibuprophen');
-      Serial.print("Publish message: ");
-      Serial.println(msg);
-      client.publish("outTopic", msg);
-      Serial.print("Heap: ");
-      Serial.println(ESP.getFreeHeap()); // Low heap can cause problems
+      NodeMCU.print('READY');
+      delay(100);
+      if(NodeMCU.available() > 0)
+      {
+         uint8_t val = NodeMCU.read();
+         String randomString = String(random(0xffff), HEX);
+         snprintf(msg, BUFFER_LEN, "{\"mac_Id\" : \"%s\", \"weight\" : %d, \"medicine\" : \"%d\"}", macIdStr.c_str(), val, 0);
+         Serial.print("Publish message: ");
+         Serial.println(msg);
+         client.publish("outTopic", msg);
+         Serial.print("Heap: ");
+         Serial.println(ESP.getFreeHeap()); // Low heap can cause problems
+      }
    }
    digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
    delay(100); // wait for a second

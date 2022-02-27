@@ -49,24 +49,17 @@ void setup()
 
 void loop()
 {
-   static boolean newDataReady = 0;
-   const int serialPrintInterval = 1000;
+   LoadCell.update();
 
-   // check for new data/start next conversion:
-   if(LoadCell.update())
-      newDataReady = true;
-
-   // get smoothed value from the dataset:
-   if(newDataReady)
+   if(ArduinoUno.available() > 0)
    {
-      if(millis() > t + serialPrintInterval)
+      while(ArduinoUno.available() > 0)
       {
-         float i = LoadCell.getData();
-         Serial.print("Load_cell output val: ");
-         Serial.println(i);
-         ArduinoUno.write(i);
-         newDataReady = 0;
-         t = millis();
+         ArduinoUno.read();
       }
+      float i = LoadCell.getData();
+      Serial.print("Load_cell output val: ");
+      Serial.println(i);
+      ArduinoUno.write(i);
    }
 }
