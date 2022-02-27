@@ -1,21 +1,24 @@
 import {
     VStack,
     Heading,
-    Button,
-    useBreakpointValue,
-    useColorModeValue
+    Button
 } from '@chakra-ui/react';
 import { Link } from "react-router-dom";
+import { fetchData } from "../AwsApi";
 
 const Main = () => {
 
-    const colSpan = useBreakpointValue({ base: 2, md: 1 });
-    const bgColor = useColorModeValue('gray.50', 'whiteAlpha.50');
+    const fetchDataFormDynamoDb = () => {
+        fetchData("ESP_DB_table")
+    }
+
     return (
         <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
             <VStack spacing={3} alignItems="flex-start">
                 <Heading size="2xl">Main</Heading>
             </VStack>
+
+            <button onClick={() => fetchDataFormDynamoDb()}> Fetch </button>
 
             <Button variant="primary" size="sm" w="full" textDecoration="underline">
                 <Link to="/">Log out</Link>
