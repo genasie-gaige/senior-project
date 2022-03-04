@@ -1,8 +1,0 @@
-Got the Ardrino uno 
-Ran through a couple of the basic examples to see how everything worked. 
-Looking to get a flutter app up and running to get barcode scanning done. 
-Using a camera is seeming more feasible. 
-Just use a machine learning framework and train lots of photos. 
-Can't be that hard right. 
-I will be buying a camera today from microcenter and will be seeing how far I can get with sending the data to an API and processing those photos on the device. 
-
