@@ -1,26 +1,29 @@
 
 import * as AWS from 'aws-sdk'
 
-const configuration = {
-    region: 'us-west-2',
-    secretAccessKey: '6bsnPmaS98xagu8DlPW7ALPzn5ApWoRaF6u6szPZ',
-    accessKeyId: 'AKIASDY5R5HSJHYTG47Z'
-}
+export const fetchData = async (tableName) => {
 
-AWS.config.update(configuration)
+    const access = process.env.REACT_APP_ACCESS_KEY
+    const secret = process.env.REACT_APP_SECRET_KEY
+    const configuration = {
+        region: 'us-west-2',
+        secretAccessKey: secret,
+        accessKeyId: access
+    }
 
-const docClient = new AWS.DynamoDB.DocumentClient()
+    AWS.config.update(configuration)
 
-export const fetchData = (tableName) => {
+    const docClient = new AWS.DynamoDB.DocumentClient()
+
     var params = {
         TableName: tableName
     }
 
-    docClient.scan(params, function (err, data) {
-        if (!err) {
-            console.log(data)
-        } else {
-            console.log(err);
-        }
-    })
+    try {
+        let promise = await docClient.scan(params).promise();
+        var myData = promise.Items;
+    } catch (err) {
+        console.log(err);
+    }
+    return myData;
 }
