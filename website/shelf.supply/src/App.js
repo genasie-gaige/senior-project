@@ -3,6 +3,7 @@ import Signup from './pages/Signup';
 import ConnectWifi from './pages/Registration/ConnectWifi';
 import Main from "./pages/Main";
 import Login from "./pages/Login";
+import { useQuery } from '@apollo/client'
 
 function App() {
   return (
