@@ -16,34 +16,27 @@ import { getAll } from "../../graphql/Query"
 
 function AddMeds() {
 
-    const [stateData, setData] = useState({})
-    const [addNew, err] = useMutation(CREATE_POST)
+    const [addNew] = useMutation(CREATE_POST)
     var { data, loading } = useQuery(getAll)
+    const [dataLength, setDataLength] = useState(0)
     if (loading) return 'loading'
 
-    const setStateData = () => {
-        setData(data.getAll)
-        console.log(data)
-    }
-
     const addItem = () => {
-        setStateData()
+        if (dataLength === 0) setDataLength(data.getAll.length)
         var name = document.getElementById('medName').value
         var id = document.getElementById('medId').value
         addNew({
             variables: {
                 name: name,
                 medId: id,
-                shelfSpot: `${stateData.length}`,
+                shelfSpot: `${dataLength}`,
                 startWeight: "0",
                 curWeight: "0"
             }
         })
 
-        console.log(err)
-
-        setStateData()
-        console.log(stateData)
+        setDataLength(dataLength + 1)
+        console.log(data)
     }
 
     return (
@@ -63,9 +56,6 @@ function AddMeds() {
                 </FormControl>
                 <Button variant="primary" size="lg" w="full" bg='gray.50' onClick={() => addItem()}>
                     Add
-                </Button>
-                <Button variant="primary" size="lg" w="full" bg='gray.50' onClick={() => setStateData()}>
-                    Debug
                 </Button>
                 <Button variant="primary" size="lg" w="full" bg='gray.50'>
                     <Link to="/main">Continue</Link>
