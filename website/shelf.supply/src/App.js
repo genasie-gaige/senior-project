@@ -3,7 +3,7 @@ import Signup from './pages/Signup';
 import ConnectWifi from './pages/Registration/ConnectWifi';
 import Main from "./pages/Main";
 import Login from "./pages/Login";
-import { useQuery } from '@apollo/client'
+import AddMeds from "./pages/Registration/AddMeds"
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
         <Route path="/deviceSetup" element={<ConnectWifi />} />
         <Route path="/main" element={<Main />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/addMeds" element={<AddMeds />} />
       </Routes>
     </div>
   );

@@ -67,7 +67,7 @@ class ConnectWifi extends React.Component {
                         Check Connection
                     </Button>
                     <Button variant="primary" size="lg" w="full" bg='gray.50' disabled={this.state.isDisabled}>
-                        <Link to={this.state.isDisabled ? '/deviceSetup' : '/Main'}>Continue</Link>
+                        <Link to={this.state.isDisabled ? '/deviceSetup' : '/addMeds'}>Continue</Link>
                     </Button>
                     <Text color={this.state.showErrorMsg ? 'red' : 'white'}>Error with connection. Try again.</Text>
                 </VStack>
