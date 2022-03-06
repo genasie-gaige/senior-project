@@ -3,8 +3,13 @@
 #include <EEPROM.h>
 #endif
 #include <SoftwareSerial.h>
+#include <QTRSensors.h>
 
 SoftwareSerial ArduinoUno(3, 2);
+QTRSensors qtr;
+
+const uint8_t SensorCount = 2;
+uint16_t sensorValues[SensorCount];
 
 // pins:
 const int HX711_dout = 4; // mcu > HX711 dout pin
@@ -22,6 +27,19 @@ void setup()
    ArduinoUno.begin(115200);
    Serial.println();
    Serial.println("Starting...");
+
+   qtr.setTypeAnalog();
+   qtr.setSensorPins((const uint8_t[]){ A0, A1 }, SensorCount);
+
+   delay(500);
+   pinMode(LED_BUILTIN, OUTPUT);
+   digitalWrite(LED_BUILTIN, HIGH);
+
+   for(uint16_t i = 0; i < 400; i++)
+   {
+      qtr.calibrate();
+   }
+   digitalWrite(LED_BUILTIN, LOW);
 
    LoadCell.begin();
    float calibrationValue;
@@ -50,16 +68,23 @@ void setup()
 void loop()
 {
    LoadCell.update();
+   qtr.read(sensorValues);
 
    if(ArduinoUno.available() > 0)
    {
-      while(ArduinoUno.available() > 0)
-      {
-         ArduinoUno.read();
-      }
+      ArduinoUno.read();
       float i = LoadCell.getData();
-      Serial.print("Load_cell output val: ");
-      Serial.println(i);
       ArduinoUno.write(i);
+      for(uint8_t i = 0; i < SensorCount; i++)
+      {
+         if(sensorValues[i] > 100)
+         {
+            ArduinoUno.write('1');
+         }
+         else
+         {
+            ArduinoUno.write('0');
+         }
+      }
    }
 }

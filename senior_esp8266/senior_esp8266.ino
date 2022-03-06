@@ -32,6 +32,7 @@ char msg[BUFFER_LEN];
 int value = 0;
 byte mac[6];
 char mac_Id[18];
+int medicine = 0;
 
 void setup_wifi()
 {

@@ -15,13 +15,20 @@ class ConnectWifi extends React.Component {
         super(props);
         this.state = {
             isDisabled: true,
-            showErrorMsg: false
+            showErrorMsg: false,
+            data: {}
         }
     }
 
-    checkConnection() {
-        var data = fetchData("ESP_DB_table")
-        if (data != null) {
+    async checkConnection() {
+        await fetchData("ESP_DB_table").then((value) => {
+            this.setState({
+                data: value
+            })
+        })
+
+        console.log(this.state.data)
+        if (this.state.data != null) {
             this.setState({
                 isDisabled: false
             });
