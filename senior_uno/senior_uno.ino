@@ -20,6 +20,8 @@ HX711_ADC LoadCell(HX711_dout, HX711_sck);
 
 const int calVal_eepromAdress = 0;
 unsigned long t = 0;
+uint8_t isTrue = 1;
+uint8_t isFalse = 0;
 
 void setup()
 {
@@ -72,18 +74,22 @@ void loop()
 
    if(ArduinoUno.available() > 0)
    {
-      ArduinoUno.read();
+      while(ArduinoUno.available() > 0)
+      {
+         ArduinoUno.read();
+      }
+
       float i = LoadCell.getData();
       ArduinoUno.write(i);
       for(uint8_t i = 0; i < SensorCount; i++)
       {
          if(sensorValues[i] > 100)
          {
-            ArduinoUno.write('1');
+            ArduinoUno.write(isTrue);
          }
          else
          {
-            ArduinoUno.write('0');
+            ArduinoUno.write(isFalse);
          }
       }
    }

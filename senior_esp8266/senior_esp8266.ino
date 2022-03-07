@@ -32,7 +32,9 @@ char msg[BUFFER_LEN];
 int value = 0;
 byte mac[6];
 char mac_Id[18];
-int medicine = 0;
+bool isFound = false;
+uint8_t counter = 0;
+uint8_t medFound = 0;
 
 void setup_wifi()
 {
@@ -177,14 +179,34 @@ void loop()
       delay(100);
       if(NodeMCU.available() > 0)
       {
-         uint8_t val = NodeMCU.read();
+         uint8_t val = NodeMCU.read(); // changed from uint8_t
+
+         // bool isFound = false;
+         // int counter = 0;
+         while(NodeMCU.available() > 0)
+         {
+            ++counter;
+            uint8_t isPlaced = NodeMCU.read();
+            Serial.print(isPlaced);
+            Serial.print('\t');
+            if(isFound == false && isPlaced == 1)
+            {
+               isFound = true;
+               medFound = counter;
+            }
+
+            Serial.print(medFound);
+            Serial.print('\t');
+         }
+
          String randomString = String(random(0xffff), HEX);
-         snprintf(msg, BUFFER_LEN, "{\"mac_Id\" : \"%s\", \"weight\" : %d, \"medicine\" : \"%d\"}", macIdStr.c_str(), val, 0);
+         snprintf(msg, BUFFER_LEN, "{\"mac_Id\" : \"%s\", \"weight\" : %d, \"medicine\" : \"%d\"}", macIdStr.c_str(), val, medFound);
          Serial.print("Publish message: ");
          Serial.println(msg);
-         client.publish("outTopic", msg);
-         Serial.print("Heap: ");
-         Serial.println(ESP.getFreeHeap()); // Low heap can cause problems
+         // client.publish("outTopic", msg);
+         isFound = false;
+         counter = 0;
+         medFound = 0;
       }
    }
    digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
