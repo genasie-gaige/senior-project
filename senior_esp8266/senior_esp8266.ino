@@ -203,7 +203,7 @@ void loop()
          snprintf(msg, BUFFER_LEN, "{\"mac_Id\" : \"%s\", \"weight\" : %d, \"medicine\" : \"%d\"}", macIdStr.c_str(), val, medFound);
          Serial.print("Publish message: ");
          Serial.println(msg);
-         // client.publish("outTopic", msg);
+         client.publish("outTopic", msg);
          isFound = false;
          counter = 0;
          medFound = 0;

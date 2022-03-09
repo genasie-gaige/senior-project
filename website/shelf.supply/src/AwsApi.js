@@ -21,9 +21,7 @@ export const fetchData = async (tableName) => {
 
     try {
         let promise = await docClient.scan(params).promise()
-        console.log(promise.Items)
         var myData = promise.Items[promise.Items.length - 1]
-        //console.log(myData)
     } catch (err) {
         console.log(err);
     }

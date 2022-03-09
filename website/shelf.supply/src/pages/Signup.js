@@ -55,7 +55,7 @@ const Signup = () => {
                 <GridItem colSpan={2}>
                     <FormControl>
                         <FormLabel>Username</FormLabel>
-                        <Input placeholder="Admin" />
+                        <Input placeholder="Username123" />
                     </FormControl>
                 </GridItem>
                 <GridItem colSpan={colSpan}>
