@@ -12,31 +12,37 @@ import { Link } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client"
 import { CREATE_POST } from "../../graphql/Mutation"
 import { getAll } from "../../graphql/Query"
+import { fetchData } from '../../AwsApi';
+import SharedVariables from '../../SharedVariables';
 
 
 function AddMeds() {
-
     const [addNew] = useMutation(CREATE_POST)
-    var { data, loading } = useQuery(getAll)
+    var { data, loading, refetch } = useQuery(getAll)
     const [dataLength, setDataLength] = useState(0)
+    const [totalWeight, setTotalWeight] = useState(0)
     if (loading) return 'loading'
 
-    const addItem = () => {
+    const addItem = async () => {
         if (dataLength === 0) setDataLength(data.getAll.length)
         var name = document.getElementById('medName').value
         var id = document.getElementById('medId').value
+        var awsData = await fetchData("ESP_DB_table").then((value) => {
+            return value;
+        })
+
         addNew({
             variables: {
                 name: name,
                 medId: id,
                 shelfSpot: `${dataLength}`,
-                startWeight: "0",
-                curWeight: "0"
+                startWeight: `${awsData.weight - totalWeight}`,
+                curWeight: `${awsData.weight - totalWeight}`
             }
         })
-
+        setTotalWeight(awsData.weight)
+        SharedVariables.prevWeight = awsData.weight
         setDataLength(dataLength + 1)
-        console.log(data)
     }
 
     return (
