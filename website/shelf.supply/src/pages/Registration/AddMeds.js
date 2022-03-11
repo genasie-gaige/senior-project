@@ -5,25 +5,28 @@ import {
     VStack,
     Heading,
     Button,
-    Text
+    Text,
+    Spinner
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link } from "react-router-dom"
 import { useMutation, useQuery } from "@apollo/client"
 import { CREATE_POST } from "../../graphql/Mutation"
 import { getAll } from "../../graphql/Query"
-import { fetchData } from '../../AwsApi';
-import SharedVariables from '../../SharedVariables';
-
+import { fetchData } from '../../AwsApi'
+import SharedVariables from '../../SharedVariables'
 
 function AddMeds() {
     const [addNew] = useMutation(CREATE_POST)
-    var { data, loading, refetch } = useQuery(getAll)
+    var { data, loading } = useQuery(getAll)
     const [dataLength, setDataLength] = useState(0)
     const [totalWeight, setTotalWeight] = useState(0)
+    const [isDone, setIsDone] = useState(true)
     if (loading) return 'loading'
 
     const addItem = async () => {
+        setIsDone(false)
+        setTimeout(() => setIsDone(true), 3000)
         if (dataLength === 0) setDataLength(data.getAll.length)
         var name = document.getElementById('medName').value
         var id = document.getElementById('medId').value
@@ -49,7 +52,7 @@ function AddMeds() {
         <VStack w="full" h="full" p={10} spacing={10} alignItems="center" >
             <VStack spacing={3} alignItems="flex-start">
                 <Heading size="2xl">Add Items</Heading>
-                <Text>Add each item in order of shelf placement</Text>
+                <Text>Place medication on shelf then press "Add".</Text>
             </VStack>
             <VStack >
                 <FormControl>
@@ -60,16 +63,14 @@ function AddMeds() {
                     <FormLabel>ID</FormLabel>
                     <Input id='medId' isRequired={true} />
                 </FormControl>
-                <Button variant="primary" size="lg" w="full" bg='gray.50' onClick={() => addItem()}>
+                <Button variant="primary" size="lg" w="full" bg='gray.50' disabled={!isDone} onClick={() => addItem()}>
                     Add
                 </Button>
-                <Button variant="primary" size="lg" w="full" bg='gray.50'>
-                    <Link to="/main">Continue</Link>
-                </Button>
-            </VStack>
-        </VStack>
-    );
+                {isDone ? <Button variant="primary" size="lg" w="full" bg='gray.50'>< Link to="/main">Continue</Link></Button> : <Spinner />}
+            </VStack >
+        </VStack >
+    )
 
-};
+}
 
 export default AddMeds;
