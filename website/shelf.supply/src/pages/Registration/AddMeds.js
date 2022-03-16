@@ -45,8 +45,8 @@ function AddMeds() {
                 name: name,
                 medId: id,
                 shelfSpot: `${dataLength}`,
-                startWeight: `${awsData.weight - totalWeight}`,
-                curWeight: `${awsData.weight - totalWeight}`
+                startWeight: `${awsData.weight - totalWeight - 12}`,
+                curWeight: `${awsData.weight - totalWeight - 12}`
             }
         })
         setTotalWeight(awsData.weight)
