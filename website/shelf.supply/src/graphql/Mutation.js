@@ -12,6 +12,15 @@ export const CREATE_POST = gql`
   }
 `;
 
+export const UPDATE_POST = gql`
+  mutation updatePost($id: String!, $curWeight: String!) {
+    updatePost(id: $id, post: {curWeight: $curWeight}) {
+      id
+      curWeight
+    }
+  }
+`;
+
 export const DELETE_POST = gql`
   mutation deletePost($id: String) {
     deletePost(id: $id)

@@ -1,5 +1,2 @@
-*.pdf
-*.aux
-*.log
 *.env
 *node_modules

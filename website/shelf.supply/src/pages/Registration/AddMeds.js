@@ -14,25 +14,31 @@ import { useMutation, useQuery } from "@apollo/client"
 import { CREATE_POST } from "../../graphql/Mutation"
 import { getAll } from "../../graphql/Query"
 import { fetchData } from '../../AwsApi'
-import SharedVariables from '../../SharedVariables'
 
 function AddMeds() {
     const [addNew] = useMutation(CREATE_POST)
     var { data, loading } = useQuery(getAll)
-    const [dataLength, setDataLength] = useState(0)
+    const [dataLength, setDataLength] = useState(1)
     const [totalWeight, setTotalWeight] = useState(0)
     const [isDone, setIsDone] = useState(true)
     if (loading) return 'loading'
 
-    const addItem = async () => {
+    const beginAdd = () => {
         setIsDone(false)
-        setTimeout(() => setIsDone(true), 3000)
+        setTimeout(() => {
+            setIsDone(true)
+            addItem()
+        }, 5000)
+    }
+
+    const addItem = async () => {
         if (dataLength === 0) setDataLength(data.getAll.length)
-        var name = document.getElementById('medName').value
-        var id = document.getElementById('medId').value
-        var awsData = await fetchData("ESP_DB_table").then((value) => {
+        let name = document.getElementById('medName').value
+        let id = document.getElementById('medId').value
+        let awsData = await fetchData("ESP_DB_table").then((value) => {
             return value;
         })
+        console.log(awsData)
 
         addNew({
             variables: {
@@ -44,7 +50,9 @@ function AddMeds() {
             }
         })
         setTotalWeight(awsData.weight)
-        SharedVariables.prevWeight = awsData.weight
+        console.log(awsData.weight)
+        console.log(totalWeight)
+
         setDataLength(dataLength + 1)
     }
 
@@ -63,7 +71,7 @@ function AddMeds() {
                     <FormLabel>ID</FormLabel>
                     <Input id='medId' isRequired={true} />
                 </FormControl>
-                <Button variant="primary" size="lg" w="full" bg='gray.50' disabled={!isDone} onClick={() => addItem()}>
+                <Button variant="primary" size="lg" w="full" bg='gray.50' disabled={!isDone} onClick={() => beginAdd()}>
                     Add
                 </Button>
                 {isDone ? <Button variant="primary" size="lg" w="full" bg='gray.50'>< Link to="/main">Continue</Link></Button> : <Spinner />}
