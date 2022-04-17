@@ -11,6 +11,8 @@ uint16_t sensorValues[SensorCount];
 HX711_ADC LoadCell(4, 5);
 HX711_ADC LoadCell2(6, 7);
 
+const int calVal_eepromAdress = 0;
+
 unsigned long t = 0;
 uint8_t isTrue = 1;
 uint8_t isFalse = 0;
@@ -38,6 +40,8 @@ void setup()
    LoadCell.begin();
    LoadCell2.begin();
    float calibrationValue = 696.0;
+
+   // EEPROM.get(calVal_eepromAdress, calibrationValue); // uncomment this if you want to fetch the calibration value from eeprom
 
    unsigned long stabilizingtime = 2000; // preciscion right after power-up can be improved by adding a few seconds of stabilizing time
    boolean _tare = true; // set this to false if you don't want tare to be performed in the next step
@@ -72,10 +76,18 @@ void loop()
 
       float i = LoadCell.getData();
       float j = LoadCell2.getData();
+      Serial.print(i);
+      Serial.print('\t');
+      Serial.print(j);
+      Serial.print('\t');
+      Serial.print(j + i);
+      Serial.println();
+      Serial.println();
       ArduinoUno.write(i + j);
 
       for(uint8_t i = 0; i < SensorCount; i++)
       {
+         Serial.println(sensorValues[i]);
          if(sensorValues[i] > 1000)
          {
             ArduinoUno.write(isTrue);
@@ -86,4 +98,5 @@ void loop()
          }
       }
    }
+   delay(500);
 }

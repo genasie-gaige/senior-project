@@ -108,7 +108,7 @@ void setup()
    Serial.println(ESP.getFreeHeap());
 
    // Load certificate file
-   File cert = SPIFFS.open("/cert2.der", "r"); // replace cert.crt eith your uploaded file name
+   File cert = SPIFFS.open("/cert.der", "r"); // replace cert.crt eith your uploaded file name
    if(!cert)
    {
       Serial.println("Failed to open cert file");
@@ -124,7 +124,7 @@ void setup()
       Serial.println("cert not loaded");
 
    // Load private key file
-   File private_key = SPIFFS.open("/private2.der", "r"); // replace private eith your uploaded file name
+   File private_key = SPIFFS.open("/private.der", "r"); // replace private eith your uploaded file name
    if(!private_key)
    {
       Serial.println("Failed to open private cert file");
@@ -140,7 +140,7 @@ void setup()
       Serial.println("private key not loaded");
 
    // Load CA file
-   File ca = SPIFFS.open("/ca2.der", "r"); // replace ca eith your uploaded file name
+   File ca = SPIFFS.open("/ca.der", "r"); // replace ca eith your uploaded file name
    if(!ca)
    {
       Serial.println("Failed to open ca ");
@@ -181,6 +181,8 @@ void loop()
       {
          uint8_t val = NodeMCU.read(); // changed from uint8_t
 
+         // bool isFound = false;
+         // int counter = 0;
          while(NodeMCU.available() > 0)
          {
             ++counter;
