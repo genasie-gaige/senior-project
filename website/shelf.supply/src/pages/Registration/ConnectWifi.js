@@ -64,7 +64,7 @@ class ConnectWifi extends React.Component {
                     </HStack>
                     <HStack>
                         <Heading size="sm">Step 4:</Heading>
-                        <Text>Wait for pop-up window</Text>
+                        <Text>Wait for pop-up window or&nbsp;<a href="http://192.168.4.1/">click here</a></Text>
                     </HStack>
                     <HStack>
                         <Heading size="sm">Step 5:</Heading>

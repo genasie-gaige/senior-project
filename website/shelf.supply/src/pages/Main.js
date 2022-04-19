@@ -14,7 +14,7 @@ import { getAll } from "../graphql/Query"
 import { fetchData } from '../AwsApi'
 import { UPDATE_POST } from '../graphql/Mutation'
 
-function Main() {
+function Main(props) {
     var [medicationList, setMedicationList] = useState()
     var [reorderList, setReorderList] = useState()
     var { data, loading, refetch } = useQuery(getAll)
@@ -27,7 +27,7 @@ function Main() {
     useEffect(() => {
 
         var interval = setInterval(async () => {
-            let awsData = await fetchData("ESP_DB_table").then((value) => {
+            let awsData = await fetchData(props.appKey).then((value) => {
                 return value;
             })
             console.log(awsData)
