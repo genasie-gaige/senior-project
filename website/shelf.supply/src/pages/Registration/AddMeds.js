@@ -31,14 +31,14 @@ function AddMeds(props) {
         setTimeout(() => {
             setIsDone(true)
             addItem()
-        }, 5000)
+        }, 6000)
     }
 
     const addItem = async () => {
         if (dataLength === 0) setDataLength(data.getAll.length)
         let name = document.getElementById('medName').value
         let id = document.getElementById('medId').value
-        let awsData = await fetchData("ESP_DB_table").then((value) => {
+        let awsData = await fetchData(location.state.state.appKey).then((value) => {
             return value;
         })
         console.log(awsData)
@@ -49,8 +49,8 @@ function AddMeds(props) {
                 user: location.state.state.user,
                 medId: id,
                 shelfSpot: `${dataLength}`,
-                startWeight: `${awsData.weight - totalWeight - 12}`,
-                curWeight: `${awsData.weight - totalWeight - 12}`
+                startWeight: `${awsData.weight - totalWeight - 6}`,
+                curWeight: `${awsData.weight - totalWeight - 6}`
             }
         })
         setTotalWeight(awsData.weight)

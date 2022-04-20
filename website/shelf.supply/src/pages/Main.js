@@ -16,7 +16,6 @@ import { UPDATE_POST } from '../graphql/Mutation'
 
 function Main() {
     var location = useLocation()
-    console.log(location)
     var [medicationList, setMedicationList] = useState()
     var [reorderList, setReorderList] = useState()
     var { data, loading, refetch } = useQuery(getAll)
@@ -55,17 +54,17 @@ function Main() {
 
     async function handleChange() {
         setIsDone(false)
-        var curData = await fetchData("ESP_DB_table").then((value) => {
+        var curData = await fetchData(location.state.state.appKey).then((value) => {
             return value;
         })
         while (curData.medicine !== '0') {
-            curData = await fetchData("ESP_DB_table").then((value) => {
+            curData = await fetchData(location.state.state.appKey).then((value) => {
                 return value;
             })
         }
         setTimeout(async () => {
             setIsDone(true)
-            curData = await fetchData("ESP_DB_table").then((value) => {
+            curData = await fetchData(location.state.state.appKey).then((value) => {
                 return value;
             })
             let diff = awsWeight - curData.weight
@@ -87,26 +86,34 @@ function Main() {
     })
     function generateMedsHTML() {
         var html = data.getAll.map((item) => {
-            var percent = Math.floor(item.curWeight / item.startWeight * 100)
-            return (
-                <HStack key={item.id}>
-                    <Text textDecoration="underline" fontWeight="bold">{item.name}:</Text>
-                    <Text>{percent}% remaining</Text>
-                </HStack>
-            )
-        })
-        return html
-    }
-    function generateOrderHTML() {
-        var html = data.getAll.map((item) => {
-            var percent = Math.floor(item.curWeight / item.startWeight * 100)
-            if (percent <= 30) {
+            if (item.user === location.state.state.user) {
+                var percent = Math.floor(item.curWeight / item.startWeight * 100)
                 return (
                     <HStack key={item.id}>
                         <Text textDecoration="underline" fontWeight="bold">{item.name}:</Text>
                         <Text>{percent}% remaining</Text>
                     </HStack>
                 )
+            } else {
+                return null
+            }
+        })
+        return html
+    }
+    function generateOrderHTML() {
+        var html = data.getAll.map((item) => {
+            if (item.user === location.state.state.user) {
+                var percent = Math.floor(item.curWeight / item.startWeight * 100)
+                if (percent <= 30) {
+                    return (
+                        <HStack key={item.id}>
+                            <Text textDecoration="underline" fontWeight="bold">{item.name}:</Text>
+                            <Text>{percent}% remaining</Text>
+                        </HStack>
+                    )
+                } else {
+                    return null
+                }
             } else {
                 return null
             }

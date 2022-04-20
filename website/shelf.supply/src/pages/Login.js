@@ -34,7 +34,7 @@ const Login = () => {
             if (user.userName === userInput &&
                 user.password === passInput) {
                 setToMain(`/main/${userInput}`)
-                setState({ appKey: user.applianceKey, user: passInput })
+                setState({ appKey: user.applianceKey, user: userInput })
                 setSignedIn(true)
                 isfound = true
             }
