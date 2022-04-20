@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const PostSchema = new mongoose.Schema({
     name: String,
+    user: String,
     medId: String,
     shelfSpot: String,
     startWeight: String,

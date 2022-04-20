@@ -5,6 +5,7 @@ const typeDefs = gql`
 type Post{
     id:ID
     name: String
+    user: String
     medId: String
     shelfSpot: String
     startWeight: String
@@ -17,6 +18,7 @@ type Query{
 
 input PostInput{
     name: String
+    user: String
     medId: String
     shelfSpot: String
     startWeight: String

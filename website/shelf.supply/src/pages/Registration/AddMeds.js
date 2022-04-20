@@ -43,6 +43,7 @@ function AddMeds() {
         addNew({
             variables: {
                 name: name,
+                user: "gen",
                 medId: id,
                 shelfSpot: `${dataLength}`,
                 startWeight: `${awsData.weight - totalWeight - 12}`,

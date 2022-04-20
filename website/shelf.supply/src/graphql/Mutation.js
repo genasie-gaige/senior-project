@@ -1,9 +1,10 @@
 import { gql } from "@apollo/client";
 export const CREATE_POST = gql`
-  mutation createPost($name: String, $medId: String, $shelfSpot: String, $startWeight: String, $curWeight: String) {
-    createPost(post: { name: $name, medId: $medId, shelfSpot: $shelfSpot, startWeight: $startWeight, curWeight: $curWeight }) {
+  mutation createPost($name: String, $user: String, $medId: String, $shelfSpot: String, $startWeight: String, $curWeight: String) {
+    createPost(post: { name: $name, user: $user, medId: $medId, shelfSpot: $shelfSpot, startWeight: $startWeight, curWeight: $curWeight }) {
         id
         name
+        user
         medId
         shelfSpot
         startWeight

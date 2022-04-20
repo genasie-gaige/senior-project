@@ -8,16 +8,16 @@ const resolvers = {
     },
     Mutation: {
         createPost: async (parent, args, context, info) => {
-            const { name, medId, shelfSpot, startWeight, curWeight } = args.post
-            const post = await new Post({ name, medId, shelfSpot, startWeight, curWeight }).save()
+            const { name, user, medId, shelfSpot, startWeight, curWeight } = args.post
+            const post = await new Post({ name, user, medId, shelfSpot, startWeight, curWeight }).save()
             return post
         },
         updatePost: async (parent, args, context, info) => {
             const { id } = args;
-            const { name, medId, shelfSpot, startWeight, curWeight } = args.post;
+            const { name, user, medId, shelfSpot, startWeight, curWeight } = args.post;
             const post = await Post.findByIdAndUpdate(
                 id,
-                { name, medId, shelfSpot, startWeight, curWeight },
+                { name, user, medId, shelfSpot, startWeight, curWeight },
                 { new: true }
             );
             return post;
