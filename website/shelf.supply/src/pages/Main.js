@@ -8,13 +8,15 @@ import {
     Container,
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useMutation, useQuery } from "@apollo/client"
 import { getAll } from "../graphql/Query"
 import { fetchData } from '../AwsApi'
 import { UPDATE_POST } from '../graphql/Mutation'
 
-function Main(props) {
+function Main() {
+    var location = useLocation()
+    console.log(location)
     var [medicationList, setMedicationList] = useState()
     var [reorderList, setReorderList] = useState()
     var { data, loading, refetch } = useQuery(getAll)
@@ -27,7 +29,7 @@ function Main(props) {
     useEffect(() => {
 
         var interval = setInterval(async () => {
-            let awsData = await fetchData(props.appKey).then((value) => {
+            let awsData = await fetchData(location.state.state.appKey).then((value) => {
                 return value;
             })
             console.log(awsData)

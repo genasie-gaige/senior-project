@@ -9,18 +9,21 @@ import {
     Spinner
 } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useMutation, useQuery } from "@apollo/client"
 import { CREATE_POST } from "../../graphql/Mutation"
 import { getAll } from "../../graphql/Query"
 import { fetchData } from '../../AwsApi'
 
-function AddMeds() {
+function AddMeds(props) {
+    var location = useLocation()
     const [addNew] = useMutation(CREATE_POST)
     var { data, loading } = useQuery(getAll)
     const [dataLength, setDataLength] = useState(1)
     const [totalWeight, setTotalWeight] = useState(0)
     const [isDone, setIsDone] = useState(true)
+    const toMain = `/main/${location.state.state.user}`
+    const state = location.state
     if (loading) return 'loading'
 
     const beginAdd = () => {
@@ -43,7 +46,7 @@ function AddMeds() {
         addNew({
             variables: {
                 name: name,
-                user: "gen",
+                user: location.state.state.user,
                 medId: id,
                 shelfSpot: `${dataLength}`,
                 startWeight: `${awsData.weight - totalWeight - 12}`,
@@ -75,7 +78,7 @@ function AddMeds() {
                 <Button variant="primary" size="lg" w="full" bg='gray.50' disabled={!isDone} onClick={() => beginAdd()}>
                     Add
                 </Button>
-                {isDone ? <Button variant="primary" size="lg" w="full" bg='gray.50'>< Link to="/main">Continue</Link></Button> : <Spinner />}
+                {isDone ? < Link to={toMain} state={state}><Button variant="primary" size="lg" w="full" bg='gray.50'>Continue</Button></Link> : <Spinner />}
             </VStack >
         </VStack >
     )

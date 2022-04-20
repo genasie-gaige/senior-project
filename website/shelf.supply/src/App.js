@@ -10,10 +10,10 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Signup />} />
-        <Route path="/deviceSetup" element={<ConnectWifi />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/deviceSetup/:user" element={<ConnectWifi />} />
+        <Route path="/main/:user" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/addMeds" element={<AddMeds />} />
+        <Route path="/addMeds/:user" element={<AddMeds />} />
       </Routes>
     </div>
   );

@@ -5,21 +5,23 @@ import {
     VStack,
     Heading,
     Button,
+    Text,
     useColorModeValue
 } from '@chakra-ui/react';
 import Axios from 'axios';
 import { Link } from "react-router-dom";
 import { useState } from 'react'
-import Main from './Main'
 
 const Login = () => {
-
     const bgColor = useColorModeValue('gray.50', 'whiteAlpha.50');
-    const [redirect, setRedirect] = useState(false)
-    const [key, setKey] = useState('')
-    const [username, setUsername] = useState('')
+    const [showErrorMsg, setShowErrorMsg] = useState(false)
+    const [signedIn, setSignedIn] = useState(false)
+    const [toMain, setToMain] = useState({ pathname: "/login" })
+    const [state, setState] = useState()
 
     const getUsers = async () => {
+        var userInput = document.getElementById('username').value
+        var passInput = document.getElementById('password').value
         var users
         await Axios.get('http://localhost:3002/users').then((response) => {
             users = response;
@@ -27,31 +29,28 @@ const Login = () => {
 
         console.log(users)
 
-        users.data.map(((user) => {
-            if (user.userName === document.getElementById('username').value &&
-                user.password === document.getElementById('password').value) {
-                setKey(user.applianceKey)
-                setUsername(user.userName)
-                setRedirect(true)
-                return 0
+        var istrue = users.data.map(((user) => {
+            var isfound = false;
+            if (user.userName === userInput &&
+                user.password === passInput) {
+                setToMain(`/main/${userInput}`)
+                setState({ appKey: user.applianceKey, user: passInput })
+                setSignedIn(true)
+                isfound = true
             }
-            return 0
+            return isfound;
         }))
-    }
 
-    const renderRedirect = () => {
-        if (redirect) {
-            return <Main appKey={key} user={username} />
-        }
+        if (!istrue) setShowErrorMsg(true)
     }
 
     return (
         <VStack w="full" h="full" p={10} spacing={10} alignItems="center" >
-            {renderRedirect()}
             <VStack spacing={3} alignItems="flex-start">
                 <Heading size="2xl">Log in</Heading>
             </VStack>
             <VStack >
+                <Text color={showErrorMsg ? 'red' : 'white'}></Text>
                 <FormControl>
                     <FormLabel >Username</FormLabel>
                     <Input id="username" />
@@ -60,9 +59,16 @@ const Login = () => {
                     <FormLabel >Password</FormLabel>
                     <Input id="password" />
                 </FormControl>
-                <Button variant="primary" size="lg" w="full" bg={bgColor} onClick={() => getUsers()}>
-                    Continue
-                </Button>
+
+                {signedIn ?
+                    <Link to={toMain} state={{ state }}>
+                        <Button variant="primary" size="lg" w="full" bg={bgColor}>
+                            Continue
+                        </Button>
+                    </Link> :
+                    <Button variant="primary" size="lg" w="full" bg={bgColor} onClick={() => getUsers()}>
+                        Signin
+                    </Button>}
                 <Link to="/">
                     <Button variant="primary" size="sm" w="full" textDecoration="underline">
                         Sign up

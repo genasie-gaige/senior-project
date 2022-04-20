@@ -12,14 +12,15 @@ import {
 } from '@chakra-ui/react';
 import { Link } from "react-router-dom"
 import Axios from 'axios'
-import AddMeds from './Registration/AddMeds'
 import { useState } from 'react'
 
 const Signup = () => {
 
-    const colSpan = useBreakpointValue({ base: 2, md: 1 });
-    const bgColor = useColorModeValue('gray.50', 'whiteAlpha.50');
-    const [redirect, setRedirect] = useState(false)
+    const colSpan = useBreakpointValue({ base: 2, md: 1 })
+    const bgColor = useColorModeValue('gray.50', 'whiteAlpha.50')
+    const [signedUp, setSignedup] = useState(false)
+    const [toAdd, setToAdd] = useState({ pathname: "/" })
+    const [state, setState] = useState()
 
     const addUser = async () => {
         var users = await Axios.get('http://localhost:3002/users').then((response) => {
@@ -35,22 +36,17 @@ const Signup = () => {
             console.log('done');
         })
 
-        setRedirect(true)
-    }
+        setToAdd(`/addMeds/${document.getElementById('username').value}`)
+        setState({ appKey: document.getElementById('applianceKey').value, user: document.getElementById('username').value })
 
-    const renderRedirect = () => {
-        if (redirect) {
-            return <AddMeds appKey={document.getElementById('applianceKey').value}
-                user={document.getElementById('username').value} />
-        }
+        setSignedup(true)
     }
 
     return (
         <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
-            {renderRedirect()}
-            <VStack spacing={3} alignItems="flex-start">
+            < VStack spacing={3} alignItems="flex-start" >
                 <Heading size="2xl">Sign up</Heading>
-            </VStack>
+            </VStack >
             <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
                 <GridItem colSpan={colSpan}>
                     <FormControl>
@@ -88,20 +84,27 @@ const Signup = () => {
                         <Input />
                     </FormControl>
                 </GridItem>
-                <GridItem colSpan={2}>
+                {!signedUp ? <GridItem colSpan={2}>
                     <Button variant="primary" size="lg" w="full" bg={bgColor} onClick={() => addUser()}>
-                        Continue
+                        Signup
                     </Button>
-                </GridItem>
+                </GridItem> :
+                    <GridItem colSpan={2}>
+                        <Link to={toAdd} state={{ state }}>
+                            <Button variant="primary" size="lg" w="full" bg={bgColor} >
+                                Continue
+                            </Button>
+                        </Link>
+                    </GridItem>}
                 <GridItem colSpan={2}>
-                    <Link to="/login">
+                    <Link to={"/login"}>
                         <Button variant="primary" size="sm" w="full" textDecoration="underline">
                             Go to Login
                         </Button>
                     </Link>
                 </GridItem>
             </SimpleGrid>
-        </VStack>
+        </VStack >
     );
 };
 export default Signup;
