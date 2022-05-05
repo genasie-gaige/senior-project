@@ -25,7 +25,7 @@ void setup()
    Serial.println("Starting...");
 
    qtr.setTypeAnalog();
-   qtr.setSensorPins((const uint8_t[]){ A0, A1, A2, A3 }, SensorCount);
+   qtr.setSensorPins((const uint8_t[]){ A0, A1, A2 }, SensorCount);
 
    delay(500);
    pinMode(LED_BUILTIN, OUTPUT);
@@ -88,7 +88,7 @@ void loop()
       for(uint8_t i = 0; i < SensorCount; i++)
       {
          Serial.println(sensorValues[i]);
-         if(sensorValues[i] > 1000)
+         if(sensorValues[i] > 500)
          {
             ArduinoUno.write(isTrue);
          }

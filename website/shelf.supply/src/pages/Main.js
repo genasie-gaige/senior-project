@@ -24,6 +24,7 @@ function Main() {
     const [isPickedUp, setIsPickedUp] = useState(false)
     const [medPicked, setMedPicked] = useState(0)
     const [isDone, setIsDone] = useState(true)
+    const [meds, setMeds] = useState()
 
     useEffect(() => {
 
@@ -43,8 +44,10 @@ function Main() {
             else if (awsData.medicine === '0' && isPickedUp) handleChange()
             else {
                 refetch()
+                setMeds(generateMeds())
                 setMedicationList(generateMedsHTML())
                 setReorderList(generateOrderHTML())
+                console.log(meds)
             }
         }, 2000)
 
@@ -68,14 +71,14 @@ function Main() {
                 return value;
             })
             let diff = awsWeight - curData.weight
-            let newWeight = data.getAll[medPicked - 1].curWeight - diff
+            let newWeight = meds[medPicked - 1].curWeight - diff
 
-            update(data.getAll[medPicked - 1].id, newWeight.toString())
+            update(meds[medPicked - 1].id, newWeight.toString())
             refetch()
             setMedicationList(generateMedsHTML())
             setReorderList(generateOrderHTML())
             setIsPickedUp(false)
-        }, 5000)
+        }, 10000)
     }
 
     const update = (id, newWeight) => updateMed({
@@ -84,6 +87,19 @@ function Main() {
             curWeight: newWeight
         }
     })
+
+    function generateMeds() {
+        const meds = [];
+        data.getAll.map((item) => {
+            if (item.user === location.state.state.user) {
+                meds.push(item)
+                return 0
+            } else {
+                return null
+            }
+        })
+        return meds
+    }
     function generateMedsHTML() {
         var html = data.getAll.map((item) => {
             if (item.user === location.state.state.user) {

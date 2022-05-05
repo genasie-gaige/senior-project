@@ -83,7 +83,7 @@ void loop()
       ArduinoUno.write(i);
       for(uint8_t i = 0; i < SensorCount; i++)
       {
-         if(sensorValues[i] > 1000)
+         if(sensorValues[i] > 600)
          {
             ArduinoUno.write(isTrue);
          }

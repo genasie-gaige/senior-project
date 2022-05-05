@@ -31,7 +31,7 @@ function AddMeds(props) {
         setTimeout(() => {
             setIsDone(true)
             addItem()
-        }, 6000)
+        }, 10000)
     }
 
     const addItem = async () => {
@@ -49,14 +49,11 @@ function AddMeds(props) {
                 user: location.state.state.user,
                 medId: id,
                 shelfSpot: `${dataLength}`,
-                startWeight: `${awsData.weight - totalWeight - 6}`,
-                curWeight: `${awsData.weight - totalWeight - 6}`
+                startWeight: `${awsData.weight - totalWeight - 9}`,
+                curWeight: `${awsData.weight - totalWeight - 9}`
             }
         })
         setTotalWeight(awsData.weight)
-        console.log(awsData.weight)
-        console.log(totalWeight)
-
         setDataLength(dataLength + 1)
     }
 
